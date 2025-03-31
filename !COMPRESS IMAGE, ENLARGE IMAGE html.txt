@@ -1,0 +1,349 @@
+<!COMPRESS IMAGE, ENLARGE IMAGE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Compress or increase image size online with our fully responsive image tool. Adjust quality levels to optimize images.">
+    <meta name="keywords" content="image compression, increase image size, image optimizer, compress images online">
+    <meta name="author" content="Your Name">
+    <title>Image Size Tool</title>
+    <style>
+        /* CSS Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0 0 60px 0; /* Added padding for footer */
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tool-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .tool-section input[type="file"] {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            border: 2px dashed #4CAF50;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .tool-section label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .tool-section input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .tool-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .tool-btn:hover {
+            background-color: #45a049;
+        }
+
+        #output {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #output img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-btn {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            display: none;
+            width: 100%;
+        }
+
+        .download-btn:hover {
+            background-color: #007B9E;
+        }
+
+        #file-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .option-selector {
+            display: flex;
+            margin: 15px 0;
+        }
+
+        .option-selector button {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background: #f5f5f5;
+            cursor: pointer;
+        }
+
+        .option-selector button.active {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .option-selector button:first-child {
+            border-radius: 5px 0 0 5px;
+        }
+
+        .option-selector button:last-child {
+            border-radius: 0 5px 5px 0;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 10px;
+            }
+            
+            .tool-section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Image Size Tool</h1>
+    </header>
+    <main>
+        <!-- Image Tool Section -->
+        <section class="tool-section">
+            <div class="option-selector">
+                <button id="compress-option" class="active">Compress Image</button>
+                <button id="enlarge-option">Enlarge Image</button>
+            </div>
+            
+            <input type="file" id="image-input" accept="image/*">
+            <div id="file-info"></div>
+            
+            <div id="compress-controls">
+                <label for="quality-level">Quality Level: <span id="quality-value">80</span>%</label>
+                <input type="range" id="quality-level" min="1" max="100" value="80">
+                <button id="process-btn" class="tool-btn">Compress Image</button>
+            </div>
+            
+            <div id="enlarge-controls" style="display: none;">
+                <label for="scale-factor">Scale Factor: <span id="scale-value">2</span>x</label>
+                <input type="range" id="scale-factor" min="1.1" max="3" step="0.1" value="2">
+                <button id="enlarge-btn" class="tool-btn">Enlarge Image</button>
+            </div>
+            
+            <div id="output"></div>
+            <button id="download-btn" class="download-btn">Download Processed Image</button>
+        </section>
+
+        <!-- Advertisement Section -->
+        <section id="advertisement">
+            <!-- Ad placeholder - replace with actual ad code -->
+            <div style="background: #eee; padding: 20px; text-align: center;">
+                Advertisement Space
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Image Size Tool. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const imageInput = document.getElementById('image-input');
+        const qualityLevel = document.getElementById('quality-level');
+        const qualityValue = document.getElementById('quality-value');
+        const scaleFactor = document.getElementById('scale-factor');
+        const scaleValue = document.getElementById('scale-value');
+        const processBtn = document.getElementById('process-btn');
+        const enlargeBtn = document.getElementById('enlarge-btn');
+        const outputDiv = document.getElementById('output');
+        const downloadBtn = document.getElementById('download-btn');
+        const fileInfoDiv = document.getElementById('file-info');
+        const compressOption = document.getElementById('compress-option');
+        const enlargeOption = document.getElementById('enlarge-option');
+        const compressControls = document.getElementById('compress-controls');
+        const enlargeControls = document.getElementById('enlarge-controls');
+
+        let processedImageUrl = null;
+        let currentMode = 'compress';
+
+        // Event Listeners
+        qualityLevel.addEventListener('input', () => {
+            qualityValue.textContent = qualityLevel.value;
+        });
+
+        scaleFactor.addEventListener('input', () => {
+            scaleValue.textContent = scaleFactor.value;
+        });
+
+        imageInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                fileInfoDiv.textContent = `Selected: ${file.name} (${formatFileSize(file.size)})`;
+            }
+        });
+
+        compressOption.addEventListener('click', () => {
+            currentMode = 'compress';
+            compressOption.classList.add('active');
+            enlargeOption.classList.remove('active');
+            compressControls.style.display = 'block';
+            enlargeControls.style.display = 'none';
+        });
+
+        enlargeOption.addEventListener('click', () => {
+            currentMode = 'enlarge';
+            enlargeOption.classList.add('active');
+            compressOption.classList.remove('active');
+            enlargeControls.style.display = 'block';
+            compressControls.style.display = 'none';
+        });
+
+        processBtn.addEventListener('click', processImage);
+        enlargeBtn.addEventListener('click', processImage);
+
+        downloadBtn.addEventListener('click', () => {
+            if (processedImageUrl) {
+                const link = document.createElement('a');
+                link.href = processedImageUrl;
+                link.download = `processed-${currentMode}-${Date.now()}.jpg`;
+                link.click();
+            }
+        });
+
+        // Helper Functions
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function processImage() {
+            if (imageInput.files.length === 0) {
+                alert('Please select an image first.');
+                return;
+            }
+
+            const file = imageInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = new Image();
+                img.src = e.target.result;
+
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    if (currentMode === 'compress') {
+                        // Compression mode - maintain dimensions, adjust quality
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                        
+                        // Convert quality from 1-100 to 0-1 for toBlob
+                        const quality = qualityLevel.value / 100;
+                        canvas.toBlob(function(blob) {
+                            displayProcessedImage(blob);
+                        }, 'image/jpeg', quality);
+                    } else {
+                        // Enlarge mode - increase dimensions
+                        const scale = parseFloat(scaleFactor.value);
+                        canvas.width = img.width * scale;
+                        canvas.height = img.height * scale;
+                        
+                        // Use high quality smoothing
+                        ctx.imageSmoothingQuality = 'high';
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        
+                        // Use maximum quality for enlargement
+                        canvas.toBlob(function(blob) {
+                            displayProcessedImage(blob);
+                        }, 'image/jpeg', 0.95);
+                    }
+                };
+            };
+
+            reader.onerror = function() {
+                alert('Error reading the image file.');
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        function displayProcessedImage(blob) {
+            processedImageUrl = URL.createObjectURL(blob);
+            const processedImage = document.createElement('img');
+            processedImage.src = processedImageUrl;
+            
+            // Display file size info
+            const sizeInfo = document.createElement('p');
+            sizeInfo.textContent = `Processed size: ${formatFileSize(blob.size)}`;
+            sizeInfo.style.marginTop = '10px';
+            
+            outputDiv.innerHTML = '';
+            outputDiv.appendChild(processedImage);
+            outputDiv.appendChild(sizeInfo);
+            
+            downloadBtn.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

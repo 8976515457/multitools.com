@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Multi-Tool Website with Image Size Tool and Loan EMI Calculator">
+    <meta name="keywords" content="image compression, increase image size, EMI Calculator, Loan Calculator">
+    <meta name="author" content="Your Name">
+    <title>Multi-Tool Website</title>
+    <style>
+        /* CSS Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f7f7f7;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        nav a.active {
+            background-color: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+        }
+
+        .tool-section {
+            display: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .tool-section.active {
+            display: block;
+        }
+
+        /* Image Tool Styles */
+        #image-tool input[type="file"] {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            border: 2px dashed #4CAF50;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        #image-tool label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        #compression-level {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        #compress-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        #compress-btn:hover {
+            background-color: #45a049;
+        }
+
+        #image-output {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #image-output img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #download-btn {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        #download-btn:hover {
+            background-color: #007B9E;
+        }
+
+        /* EMI Calculator Styles */
+        #emi-calculator {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #emi-calculator label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        #emi-calculator input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        #calculate-btn {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        #calculate-btn:hover {
+            background: #218838;
+        }
+
+        #emi-result {
+            margin-top: 20px;
+        }
+
+        #emi-result h2 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        #emi-result p {
+            font-size: 18px;
+            margin: 8px 0;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        /* Advertisement Section */
+        #advertisement {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        @media screen and (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            nav a {
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Multi-Tool Website</h1>
+        <nav>
+            <a href="#" class="nav-link active" data-target="image-tool">Image Size Tool</a>
+            <a href="#" class="nav-link" data-target="emi-calculator">Loan EMI Calculator</a>
+        </nav>
+    </header>
+    <main>
+        <!-- Image Size Tool Section -->
+        <section id="image-tool" class="tool-section active">
+            <h2>Image Size Tool</h2>
+            <input type="file" id="image-input" accept="image/*">
+            <label for="compression-level">Compression Level: <span id="compression-value">0.5</span></label>
+            <input type="range" id="compression-level" min="0.1" max="1" step="0.1" value="0.5">
+            <button id="compress-btn">Process Image</button>
+            <div id="image-output"></div>
+            <button id="download-btn">Download Processed Image</button>
+        </section>
+
+        <!-- Loan EMI Calculator Section -->
+        <section id="emi-calculator" class="tool-section">
+            <h2>Loan EMI Calculator</h2>
+            <form id="loanForm">
+                <label for="loanAmount">Loan Amount (₹):</label>
+                <input type="number" id="loanAmount" placeholder="Enter loan amount" required>
+
+                <label for="interestRate">Interest Rate (%):</label>
+                <input type="number" id="interestRate" placeholder="Enter interest rate" step="0.01" required>
+
+                <label for="loanTenure">Loan Tenure (Years):</label>
+                <input type="number" id="loanTenure" placeholder="Enter tenure in years" required>
+
+                <button type="submit" id="calculate-btn">Calculate EMI</button>
+            </form>
+
+            <div id="emi-result">
+                <h2>Results:</h2>
+                <p>Monthly EMI: <span class="highlight" id="emi">₹0</span></p>
+                <p>Total Interest: <span class="highlight" id="totalInterest">₹0</span></p>
+                <p>Total Payment: <span class="highlight" id="totalPayment">₹0</span></p>
+            </div>
+        </section>
+
+        <!-- Advertisement Section -->
+        <section id="advertisement">
+            <!-- Google AdSense Ad Unit -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_UNIT_ID"
+                crossorigin="anonymous"></script>
+            <!-- Ad Unit -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_AD_UNIT_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Multi-Tool Website. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and sections
+                document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.tool-section').forEach(el => el.classList.remove('active'));
+                
+                // Add active class to clicked link and corresponding section
+                this.classList.add('active');
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // Image Tool Functionality
+        const imageInput = document.getElementById('image-input');
+        const compressionLevel = document.getElementById('compression-level');
+        const compressBtn = document.getElementById('compress-btn');
+        const imageOutput = document.getElementById('image-output');
+        const downloadBtn = document.getElementById('download-btn');
+        const compressionValue = document.getElementById('compression-value');
+
+        let processedImageUrl = null;
+
+        // Update compression level value
+        compressionLevel.addEventListener('input', () => {
+            compressionValue.textContent = compressionLevel.value;
+        });
+
+        compressBtn.addEventListener('click', () => {
+            if (imageInput.files.length === 0) {
+                alert('Please select an image to process.');
+                return;
+            }
+
+            const file = imageInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = new Image();
+                img.src = e.target.result;
+
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    // Increase image dimensions to make the file size larger
+                    const SCALE_FACTOR = 2; // Increase dimensions by 2x
+                    canvas.width = img.width * SCALE_FACTOR;
+                    canvas.height = img.height * SCALE_FACTOR;
+
+                    // Draw the upscaled image on the canvas
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    // Use minimal compression (high quality) to increase file size
+                    canvas.toBlob(function(blob) {
+                        processedImageUrl = URL.createObjectURL(blob);
+                        const processedImage = document.createElement('img');
+                        processedImage.src = processedImageUrl;
+                        imageOutput.innerHTML = '';
+                        imageOutput.appendChild(processedImage);
+
+                        // Show download button
+                        downloadBtn.style.display = 'block';
+                        downloadBtn.onclick = () => {
+                            const link = document.createElement('a');
+                            link.href = processedImageUrl;
+                            link.download = `processed-image-${Date.now()}.jpg`;
+                            link.click();
+                        };
+                    }, 'image/jpeg', 1.0); // Use maximum quality (1.0)
+                };
+            };
+
+            reader.readAsDataURL(file);
+        });
+
+        // EMI Calculator Functionality
+        document.getElementById("loanForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const amount = parseFloat(document.getElementById("loanAmount").value);
+            const rate = parseFloat(document.getElementById("interestRate").value) / 100 / 12;
+            const years = parseFloat(document.getElementById("loanTenure").value);
+            const months = years * 12;
+
+            if (amount && rate && years) {
+                const emi = (amount * rate * Math.pow(1 + rate, months)) / (Math.pow(1 + rate, months) - 1);
+                const totalPayment = emi * months;
+                const totalInterest = totalPayment - amount;
+
+                document.getElementById("emi").textContent = `₹${emi.toFixed(2)}`;
+                document.getElementById("totalInterest").textContent = `₹${totalInterest.toFixed(2)}`;
+                document.getElementById("totalPayment").textContent = `₹${totalPayment.toFixed(2)}`;
+            } else {
+                alert("Please fill in all fields.");
+            }
+        });
+    </script>
+</body>
+</html>
